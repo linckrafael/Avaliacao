@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback do Usuário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+      color: #333;
+    }
+
+    .conteudo {
+      min-height: 70vh;
+    }
+
+    .btn-feedback {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-feedback:hover {
+      background-color: #0056b3;
+    }
+
+    /* Fundo escurecido */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    /* Janela do formulário */
+    .modal {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      position: relative;
+      transform: translateY(-30px);
+      opacity: 0;
+      animation: slideIn 0.3s ease forwards;
+    }
+
+    @keyframes slideIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-button:hover {
+      color: #000;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .btn-enviar {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-enviar:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="conteudo">
+    <h1>Bem-vindo ao Sistema</h1>
+    <p>Esta é uma demonstração. Clique abaixo para nos contar como foi sua experiência.</p>
+  </div>
+
+  <button class="btn-feedback" onclick="abrirModal()">Avalie sua experiência</button>
+
+  <!-- Modal (popup) -->
+  <div id="overlay" class="modal-overlay" onclick="clicarFora(event)">
+    <div class="modal">
+      <button class="close-button" onclick="fecharModal()">×</button>
+      <h2>Formulário de Feedback</h2>
+      <form onsubmit="enviarFeedback(event)">
+        <label for="nome">Seu nome (opcional):</label>
+        <input type="text" id="nome" name="nome" />
+
+        <label for="comentario">Comentário:</label>
+        <textarea id="comentario" name="comentario" rows="4" required></textarea>
+
+        <label>Nota:</label>
+        <label><input type="radio" name="nota" value="1" required /> 1</label>
+        <label><input type="radio" name="nota" value="2" /> 2</label>
+        <label><input type="radio" name="nota" value="3" /> 3</label>
+        <label><input type="radio" name="nota" value="4" /> 4</label>
+        <label><input type="radio" name="nota" value="5" /> 5</label>
+
+        <button type="submit" class="btn-enviar">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function abrirModal() {
+      const overlay = document.getElementById('overlay');
+      overlay.style.display = 'flex';
+    }
+
+    function fecharModal() {
+      const overlay = document.getElementById('overlay');
+      overlay.style.display = 'none';
+    }
+
+    function clicarFora(event) {
+      const modal = document.querySelector('.modal');
+      if (!modal.contains(event.target)) {
+        fecharModal();
+      }
+    }
+
+    function enviarFeedback(event) {
+      event.preventDefault();
+      alert('Obrigado pelo seu feedback!');
+      fecharModal();
+    }
+  </script>
+
+</body>
+</html>
